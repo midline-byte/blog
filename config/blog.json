@@ -1,0 +1,7 @@
+{
+  "platform": "",
+  "apiUrlEnv": "BLOG_API_URL",
+  "apiTokenEnv": "BLOG_API_TOKEN",
+  "defaultStatus": "draft",
+  "defaultFormat": "markdown"
+}

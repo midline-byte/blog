@@ -1,0 +1,23 @@
+{
+  "categories": [
+    {
+      "id": "food",
+      "name": "Food",
+      "skill": "restaurant.md",
+      "inputPath": "input/food"
+    },
+    {
+      "id": "travel",
+      "name": "Travel",
+      "skill": "travel.md",
+      "inputPath": "input/travel"
+    },
+    {
+      "id": "appliance",
+      "name": "Appliance",
+      "skill": "appliance.md",
+      "inputPath": "input/appliance"
+    }
+  ],
+  "defaultSkill": "default.md"
+}
