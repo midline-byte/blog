@@ -1,0 +1,15 @@
+{
+  "priority": [
+    "restaurant",
+    "travel",
+    "appliance",
+    "product-review",
+    "daily",
+    "default"
+  ],
+  "defaultSkill": "default.md",
+  "defaultThreshold": 0.55,
+  "strongMatchThreshold": 0.8,
+  "fallbackCategory": "default",
+  "mixedCategoryPolicy": "priority"
+}

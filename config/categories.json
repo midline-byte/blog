@@ -1,23 +1,90 @@
 {
   "categories": [
     {
-      "id": "food",
-      "name": "Food",
+      "id": "restaurant",
+      "name": "Restaurant",
       "skill": "restaurant.md",
-      "inputPath": "input/food"
+      "inputPath": "input/food",
+      "signals": [
+        "food",
+        "drink",
+        "restaurant",
+        "cafe",
+        "menu",
+        "plate",
+        "dish",
+        "table"
+      ],
+      "minimumConfidence": 0.55
     },
     {
       "id": "travel",
       "name": "Travel",
       "skill": "travel.md",
-      "inputPath": "input/travel"
+      "inputPath": "input/travel",
+      "signals": [
+        "travel",
+        "landmark",
+        "hotel",
+        "street",
+        "station",
+        "airport",
+        "route",
+        "view"
+      ],
+      "minimumConfidence": 0.55
     },
     {
       "id": "appliance",
       "name": "Appliance",
       "skill": "appliance.md",
-      "inputPath": "input/appliance"
+      "inputPath": "input/appliance",
+      "signals": [
+        "appliance",
+        "device",
+        "electronics",
+        "product",
+        "control",
+        "button",
+        "setup",
+        "maintenance"
+      ],
+      "minimumConfidence": 0.55
+    },
+    {
+      "id": "product-review",
+      "name": "Product Review",
+      "skill": "product-review.md",
+      "inputPath": "input/product-review",
+      "signals": [
+        "product",
+        "review",
+        "unboxing",
+        "package",
+        "brand",
+        "feature",
+        "accessory",
+        "label"
+      ],
+      "minimumConfidence": 0.55
+    },
+    {
+      "id": "daily",
+      "name": "Daily",
+      "skill": "daily.md",
+      "inputPath": "input/daily",
+      "signals": [
+        "daily",
+        "lifestyle",
+        "casual",
+        "moment",
+        "home",
+        "routine"
+      ],
+      "minimumConfidence": 0.55
     }
   ],
-  "defaultSkill": "default.md"
+  "defaultSkill": "default.md",
+  "defaultThreshold": 0.55,
+  "strongMatchThreshold": 0.8
 }
