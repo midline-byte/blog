@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog AI Project</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #1c2430;
+      --muted: #647184;
+      --line: #d9dee7;
+      --green: #17845b;
+      --amber: #a96400;
+      --blue: #255f99;
+      --red: #b33737;
+      --shadow: 0 10px 30px rgba(28, 36, 48, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: #18324a;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .button {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+      padding: 8px 11px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .button.primary {
+      border-color: #18324a;
+      background: #18324a;
+      color: #ffffff;
+    }
+
+    main {
+      padding: 28px 0 40px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .metric,
+    .panel,
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 16px;
+      min-height: 104px;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .value {
+      margin-top: 8px;
+      font-size: 28px;
+      font-weight: 750;
+      line-height: 1;
+    }
+
+    .note {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.45fr 0.9fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 17px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    .num {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #e9eef5;
+      color: #18324a;
+      font-weight: 800;
+    }
+
+    .step strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status {
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .done {
+      background: #e4f4ec;
+      color: var(--green);
+    }
+
+    .ready {
+      background: #e8f0f8;
+      color: var(--blue);
+    }
+
+    .wait {
+      background: #fff2dd;
+      color: var(--amber);
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 8px;
+    }
+
+    .flow-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .flow-item:last-child {
+      border-bottom: 0;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex: 0 0 auto;
+    }
+
+    code {
+      display: block;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #111a24;
+      color: #e9f0f8;
+      padding: 12px;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .card {
+      padding: 14px;
+      box-shadow: none;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .summary,
+      .grid,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px 0;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 20px, 1180px);
+      }
+
+      main {
+        padding-top: 18px;
+      }
+
+      .step {
+        grid-template-columns: 34px 1fr;
+      }
+
+      .status {
+        grid-column: 2;
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell topbar">
+      <div class="brand">
+        <div class="mark">AI</div>
+        <div>
+          <h1>Blog AI Project</h1>
+          <p class="subtitle">이미지 분석부터 블로그 생성, 게시, 운영 로그까지 이어지는 자동화 프로젝트</p>
+        </div>
+      </div>
+      <nav class="actions" aria-label="Project links">
+        <a class="button primary" href="README.md">README</a>
+        <a class="button" href="docs/BLOG_WORKFLOW.md">Workflow</a>
+        <a class="button" href="docs/MCP_LIST.md">MCP</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="summary" aria-label="Project summary">
+      <div class="metric">
+        <div class="label">Workflow</div>
+        <div class="value">7</div>
+        <div class="note">STEP 1-7 적용 완료</div>
+      </div>
+      <div class="metric">
+        <div class="label">Tests</div>
+        <div class="value">14</div>
+        <div class="note">unittest 기준 통과</div>
+      </div>
+      <div class="metric">
+        <div class="label">Skills</div>
+        <div class="value">6</div>
+        <div class="note">restaurant, travel, appliance 등</div>
+      </div>
+      <div class="metric">
+        <div class="label">Repo</div>
+        <div class="value">main</div>
+        <div class="note">private GitHub 원격 추적</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Step Status</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div><strong>Project Setup</strong><span>환경, Git, 보안 템플릿, 기본 구조</span></div>
+            <div class="status done">Done</div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div><strong>Skill System</strong><span>스킬 우선순위, OCR 방어, 금칙어 기준</span></div>
+            <div class="status done">Done</div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div><strong>Image Analysis</strong><span>검증, 분류, confidence, 로그 규격</span></div>
+            <div class="status done">Done</div>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <div><strong>Blog Generation</strong><span>제목, 본문, SEO, 해시태그, markdown 저장</span></div>
+            <div class="status done">Done</div>
+          </div>
+          <div class="step">
+            <div class="num">5</div>
+            <div><strong>MCP Architecture</strong><span>필수/선택 MCP 목록과 인증 방식 정의</span></div>
+            <div class="status ready">Ready</div>
+          </div>
+          <div class="step">
+            <div class="num">6</div>
+            <div><strong>Publish Engine</strong><span>draft/publish payload, API 호출, 재시도</span></div>
+            <div class="status wait">Needs API</div>
+          </div>
+          <div class="step">
+            <div class="num">7</div>
+            <div><strong>Operation</strong><span>app, upload, error, audit 로그와 알림 레벨</span></div>
+            <div class="status done">Done</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="panel">
+          <h2>Pipeline</h2>
+          <div class="flow">
+            <div class="flow-item"><span class="dot"></span><span>이미지 업로드</span></div>
+            <div class="flow-item"><span class="dot"></span><span>이미지 분석 및 카테고리 분류</span></div>
+            <div class="flow-item"><span class="dot"></span><span>Skill 선택</span></div>
+            <div class="flow-item"><span class="dot"></span><span>블로그 글과 SEO 생성</span></div>
+            <div class="flow-item"><span class="dot"></span><span>Markdown 저장</span></div>
+            <div class="flow-item"><span class="dot"></span><span>게시 API 연동</span></div>
+            <div class="flow-item"><span class="dot"></span><span>URL 저장 및 로그 기록</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Local Commands</h2>
+          <code>python -m unittest discover -s tests</code>
+          <br>
+          <code>python -m src.analyze_image input/food/sample.png</code>
+          <br>
+          <code>python -m src.pipeline input/food/sample.png</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards" aria-label="Modules">
+      <div class="card">
+        <h3>Analysis</h3>
+        <p>파일 시그니처, 크기, 경로, 픽셀 제한을 검증하고 규칙 기반 분류를 수행합니다.</p>
+      </div>
+      <div class="card">
+        <h3>Generation</h3>
+        <p>선택된 Skill과 분석 결과를 사용해 제목 후보, 본문, SEO 키워드를 생성합니다.</p>
+      </div>
+      <div class="card">
+        <h3>Publishing</h3>
+        <p>API URL과 토큰이 준비되면 draft 또는 publish 모드로 게시 요청을 보냅니다.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

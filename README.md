@@ -5,6 +5,7 @@ AI image analysis results are used to generate blog posts and prepare upload-rea
 ## Project Structure
 
 ```text
+index.html Browser status page
 docs/      Project documentation
 input/     Source images grouped by topic
 output/    Generated markdown, HTML, and images
@@ -47,6 +48,10 @@ Required keys:
 3. Generate blog content with the selected skill.
 4. Save generated artifacts under `output/`.
 5. Upload final content to the blog platform.
+
+## Browser Page
+
+Open `index.html` in Chrome to view the local project dashboard.
 
 ## Local Image Analysis
 
