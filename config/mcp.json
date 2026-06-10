@@ -1,3 +1,46 @@
 {
-  "servers": []
+  "servers": [
+    {
+      "name": "filesystem",
+      "required": true,
+      "purpose": "Read images, save markdown, and write logs",
+      "auth": "local-permissions",
+      "enabled": false
+    },
+    {
+      "name": "fetch",
+      "required": true,
+      "purpose": "Call blog APIs and authenticated REST endpoints",
+      "auth": "BLOG_API_TOKEN",
+      "enabled": false
+    },
+    {
+      "name": "git",
+      "required": true,
+      "purpose": "Commit and version project files",
+      "auth": "git-credentials",
+      "enabled": false
+    },
+    {
+      "name": "playwright",
+      "required": false,
+      "purpose": "Browser automation for admin uploads",
+      "auth": "browser-session",
+      "enabled": false
+    },
+    {
+      "name": "sqlite",
+      "required": false,
+      "purpose": "Track post history and prevent duplicate uploads",
+      "auth": "local-file",
+      "enabled": false
+    },
+    {
+      "name": "google-drive",
+      "required": false,
+      "purpose": "Back up source images",
+      "auth": "google-oauth",
+      "enabled": false
+    }
+  ]
 }

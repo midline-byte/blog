@@ -1,0 +1,19 @@
+{
+  "titleCount": 5,
+  "summaryMaxLength": 150,
+  "minimumSeoKeywords": 5,
+  "minimumHashtags": 10,
+  "paragraphMaxLength": 500,
+  "lengthTargets": {
+    "short": 1000,
+    "medium": 2000,
+    "long": 3000
+  },
+  "blockedPhrases": [
+    "best ever",
+    "guaranteed",
+    "miracle",
+    "100% effective",
+    "limited time only"
+  ]
+}

@@ -1,0 +1,7 @@
+title = "blog-ai-project secret scan"
+
+[[rules]]
+id = "generic-api-key"
+description = "Generic API key assignment"
+regex = '''(?i)(api[_-]?key|token|secret)\s*=\s*['"]?[a-z0-9_\-]{20,}'''
+tags = ["key", "token", "secret"]

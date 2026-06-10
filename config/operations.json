@@ -1,0 +1,31 @@
+{
+  "logs": {
+    "app": "logs/app.log",
+    "upload": "logs/upload.log",
+    "error": "logs/error.log",
+    "audit": "logs/audit.log"
+  },
+  "monitoringTargets": {
+    "analysisSuccessRate": 0.95,
+    "uploadSuccessRate": 0.99,
+    "averageProcessingSeconds": 30
+  },
+  "retry": {
+    "publishMaxAttempts": 3
+  },
+  "retentionDays": {
+    "images": 7,
+    "markdown": 30,
+    "logs": 90
+  },
+  "alerts": {
+    "level1": "retry",
+    "level2": "notify-admin",
+    "level3": "manual-handling",
+    "channels": [
+      "slack",
+      "email",
+      "discord"
+    ]
+  }
+}

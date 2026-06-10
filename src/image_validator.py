@@ -6,6 +6,7 @@ from pathlib import Path
 
 SUPPORTED_EXTENSIONS = {"jpg", "jpeg", "png", "webp", "heic"}
 MAX_FILE_SIZE_BYTES = 20 * 1024 * 1024
+MAX_IMAGE_PIXELS = 100_000_000
 
 
 @dataclass(frozen=True)
@@ -25,9 +26,20 @@ def validate_image_path(
     image_path: str | Path,
     supported_extensions: set[str] | None = None,
     max_file_size_bytes: int = MAX_FILE_SIZE_BYTES,
+    allowed_root: str | Path | None = None,
+    max_image_pixels: int = MAX_IMAGE_PIXELS,
 ) -> ImageMetadata:
     path = Path(image_path)
     extensions = supported_extensions or SUPPORTED_EXTENSIONS
+
+    if "\x00" in str(path):
+        raise ImageValidationError("image path contains null byte")
+
+    if allowed_root is not None:
+        root = Path(allowed_root).resolve()
+        resolved = path.resolve()
+        if root != resolved and root not in resolved.parents:
+            raise ImageValidationError("image path is outside the allowed directory")
 
     if not path.exists():
         raise ImageValidationError(f"image file does not exist: {path}")
@@ -38,13 +50,18 @@ def validate_image_path(
     if extension not in extensions:
         raise ImageValidationError(f"unsupported image extension: {extension}")
 
+    if not _has_valid_signature(path, extension):
+        raise ImageValidationError("image signature does not match supported format")
+
     size_bytes = path.stat().st_size
     if size_bytes > max_file_size_bytes:
         raise ImageValidationError("image file exceeds maximum size")
 
     width, height = read_image_dimensions(path)
-    if width <= 0 or height <= 0:
+    if extension != "heic" and (width <= 0 or height <= 0):
         raise ImageValidationError("image dimensions could not be read")
+    if width > 0 and height > 0 and width * height > max_image_pixels:
+        raise ImageValidationError("image dimensions exceed maximum pixel limit")
 
     return ImageMetadata(
         file_name=path.name,
@@ -70,6 +87,21 @@ def read_image_dimensions(path: Path) -> tuple[int, int]:
         return (0, 0)
 
     return (0, 0)
+
+
+def _has_valid_signature(path: Path, extension: str) -> bool:
+    with path.open("rb") as file:
+        header = file.read(32)
+
+    if extension == "png":
+        return header.startswith(b"\x89PNG\r\n\x1a\n")
+    if extension in {"jpg", "jpeg"}:
+        return header.startswith(b"\xff\xd8")
+    if extension == "webp":
+        return len(header) >= 12 and header[:4] == b"RIFF" and header[8:12] == b"WEBP"
+    if extension == "heic":
+        return len(header) >= 12 and header[4:8] == b"ftyp" and header[8:12] in {b"heic", b"heix", b"hevc", b"hevx", b"mif1", b"msf1"}
+    return False
 
 
 def _png_dimensions(header: bytes) -> tuple[int, int]:

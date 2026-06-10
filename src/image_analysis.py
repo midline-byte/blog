@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from src.image_validator import ImageMetadata, validate_image_path
+from src.content_safety import sanitize_extracted_text
 
 
 @dataclass
@@ -39,11 +40,11 @@ def build_analysis_result(
         width=metadata.width,
         height=metadata.height,
         objects=_list(data.get("objects")),
-        ocr=_list(data.get("ocr") or data.get("textInImage")),
+        ocr=sanitize_extracted_text(_list(data.get("ocr") or data.get("textInImage"))),
         locationType=str(data.get("locationType") or data.get("location_type") or ""),
         mood=str(data.get("mood") or ""),
         dominantColors=_list(data.get("dominantColors") or data.get("dominant_colors")),
-        keywords=_list(data.get("keywords")),
+        keywords=sanitize_extracted_text(_list(data.get("keywords"))),
         category=str(category_result.get("category", "")),
         confidence=int(category_result.get("confidence", 0)),
         skill=str(category_result.get("skill", "")),

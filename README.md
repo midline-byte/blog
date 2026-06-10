@@ -29,6 +29,7 @@ tests/     Test code
 ## Environment
 
 Copy `.env` values into your local environment before running automation.
+Use `.env.example` as the committed template and keep real credentials only in `.env`.
 
 Required keys:
 
@@ -54,3 +55,20 @@ python -m src.analyze_image input/food/sample.png
 ```
 
 The local analyzer validates image files and applies rule-based category classification. AI Vision integration can replace the observation source while keeping the same output contract.
+
+## Blog Generation
+
+```bash
+python -m unittest discover -s tests
+```
+
+The current implementation provides local validation, classification, markdown generation, publish payload construction, and operation logging. External AI and blog API calls are connected through environment variables and MCP configuration when credentials are ready.
+
+## Publish
+
+Publishing requires:
+
+- `BLOG_API_URL`
+- `BLOG_API_TOKEN`
+
+Without those values, the publish engine returns a structured failure instead of making a network call.

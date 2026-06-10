@@ -201,6 +201,40 @@ LOG_LEVEL=INFO
 
 ---
 
+# 보안 정책
+
+## 비밀 정보 관리
+
+* API Key, 토큰 등 모든 비밀 정보는 `.env` 파일에만 저장한다.
+* `.env` 파일은 절대 Git에 커밋하지 않는다. (`.gitignore` 등록 필수 확인)
+* 저장소에는 값을 비운 `.env.example` 템플릿만 포함한다.
+* 소스 코드 내 API Key 하드코딩을 금지한다.
+* 커밋 전 시크릿 스캐닝(예: gitleaks)으로 키 유출 여부를 점검한다.
+
+## .env.example (값 없이 템플릿만 커밋)
+
+```env
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+BLOG_API_URL=
+BLOG_API_TOKEN=
+IMAGE_STORAGE_PATH=
+LOG_LEVEL=INFO
+```
+
+## 의존성 보안
+
+* Node 패키지: `npm audit`를 정기적으로 실행하고 취약점을 조치한다.
+* Python 패키지: `pip-audit`를 정기적으로 실행한다.
+* 신뢰할 수 있는 출처의 패키지만 설치한다.
+
+## 최소 권한 원칙
+
+* Blog API 토큰은 필요한 권한 범위(scope)로만 발급한다.
+* 파일 시스템 및 외부 시스템 접근 권한을 최소화한다.
+
+---
+
 # Claude Code 역할
 
 * 프로젝트 구조 생성
@@ -232,6 +266,8 @@ LOG_LEVEL=INFO
 * [ ] 프로젝트 디렉토리 생성
 * [ ] Git 초기화
 * [ ] .env 생성
+* [ ] .env.example 생성 (값 없는 템플릿)
+* [ ] .gitignore에 .env 포함 확인
 * [ ] README.md 생성
 
 ---

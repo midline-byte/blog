@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from src.content_safety import sanitize_extracted_text
+
 
 @dataclass(frozen=True)
 class CategoryClassification:
@@ -82,6 +84,8 @@ def _collect_terms(analysis: dict[str, Any]) -> set[str]:
     for field in fields:
         value = analysis.get(field)
         values = value if isinstance(value, list) else [value]
+        if field in {"ocr", "textInImage"}:
+            values = sanitize_extracted_text(values)
         for item in values:
             normalized = _normalize(item)
             if not normalized:
