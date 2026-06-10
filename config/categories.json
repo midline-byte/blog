@@ -47,7 +47,12 @@
         "control",
         "button",
         "setup",
-        "maintenance"
+        "maintenance",
+        "tv",
+        "air-conditioner",
+        "vacuum",
+        "washer",
+        "refrigerator"
       ],
       "minimumConfidence": 0.55
     },

@@ -46,3 +46,11 @@ Required keys:
 3. Generate blog content with the selected skill.
 4. Save generated artifacts under `output/`.
 5. Upload final content to the blog platform.
+
+## Local Image Analysis
+
+```bash
+python -m src.analyze_image input/food/sample.png
+```
+
+The local analyzer validates image files and applies rule-based category classification. AI Vision integration can replace the observation source while keeping the same output contract.

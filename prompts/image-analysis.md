@@ -25,3 +25,14 @@ Return JSON with this shape:
   "confidenceNotes": []
 }
 ```
+
+The category classifier consumes these fields and returns:
+
+```json
+{
+  "category": "restaurant",
+  "confidence": 96,
+  "keywords": [],
+  "skill": "restaurant.md"
+}
+```

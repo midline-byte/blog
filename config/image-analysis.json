@@ -1,0 +1,59 @@
+{
+  "supportedExtensions": [
+    "jpg",
+    "jpeg",
+    "png",
+    "webp",
+    "heic"
+  ],
+  "maxFileSizeMb": 20,
+  "maxImagesPerPost": 20,
+  "confidence": {
+    "autoSelect": 90,
+    "recommended": 70,
+    "needsReviewBelow": 70
+  },
+  "mainImagePriority": [
+    "people",
+    "food",
+    "landmark",
+    "product"
+  ],
+  "categoryRules": {
+    "restaurant": [
+      "food",
+      "menu",
+      "restaurant",
+      "coffee",
+      "dish",
+      "plate",
+      "table"
+    ],
+    "travel": [
+      "landscape",
+      "landmark",
+      "beach",
+      "hotel",
+      "mountain",
+      "station",
+      "airport"
+    ],
+    "appliance": [
+      "tv",
+      "air-conditioner",
+      "air conditioner",
+      "vacuum",
+      "washer",
+      "refrigerator",
+      "appliance"
+    ],
+    "product-review": [
+      "product",
+      "package",
+      "unboxing",
+      "brand",
+      "label",
+      "model"
+    ]
+  }
+}
